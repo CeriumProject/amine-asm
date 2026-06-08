@@ -2,7 +2,7 @@
 
 use std::collections::HashSet;
 use std::path::Path;
-use crate::instruction::Instruction;
+pub use crate::instruction::Instruction;
 
 mod instruction;
 mod opcode;

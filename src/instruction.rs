@@ -1,7 +1,7 @@
 use std::str::FromStr;
-use crate::AssemblerError;
-use crate::opcode::{NoOpOpcode, SingleOpOpcode, TwoOpOpcode};
-use crate::operand::{ConstOp, RegOp};
+pub use crate::AssemblerError;
+pub use crate::opcode::{NoOpOpcode, SingleOpOpcode, TwoOpOpcode};
+pub use crate::operand::{ConstOp, RegOp};
 
 #[derive(Debug)]
 pub enum Instruction {
