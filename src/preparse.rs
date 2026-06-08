@@ -6,7 +6,7 @@ use crate::operand::ConstOp;
 #[derive(Debug)]
 pub struct UnallowedInclude(String);
 
-pub fn preparse(code: &[Instruction]) -> Result<HashMap<String, ConstOp>, AssemblerError> {
+pub(crate) fn preparse(code: &[Instruction]) -> Result<HashMap<String, ConstOp>, AssemblerError> {
     let mut idx: usize = 0;
     let mut top_label = String::new();
     let mut labels = HashMap::new();

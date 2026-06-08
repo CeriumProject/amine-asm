@@ -7,7 +7,7 @@ struct NonexistentDefinition;
 
 // TODO: idea: Iter<Instruction> -> Iter<(usize, Instruction)> (only compute idx once)
 
-pub fn assemble(code: &[Instruction]) -> Result<Vec<u16>, AssemblerError> {
+pub(crate) fn assemble(code: &[Instruction]) -> Result<Vec<u16>, AssemblerError> {
     let labels = preparse(code)?;
     let mut idx: usize = 0;
     let mut top_label = String::new();

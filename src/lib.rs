@@ -2,13 +2,13 @@
 
 use std::collections::HashSet;
 use std::path::Path;
-pub use crate::instruction::Instruction;
+use crate::instruction::Instruction;
 
-mod instruction;
-mod opcode;
-mod operand;
-mod preparse;
-mod assemble;
+pub mod instruction;
+pub mod opcode;
+pub mod operand;
+pub mod preparse;
+pub mod assemble;
 
 // TODO: move all error variants into here
 #[derive(Debug)]
