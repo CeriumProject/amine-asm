@@ -9,13 +9,13 @@ pub struct InvalidOperand(String);
 #[derive(Debug)]
 pub struct InvalidLabel(String);
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum RegOp {
     Direct(RawRegOp),
     Indirect(RawRegOp),
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum RawRegOp {
     Const(String),
     Value(u16),
