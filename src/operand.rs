@@ -107,7 +107,7 @@ impl Display for RawRegOp {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
         match self {
             RawRegOp::Const(constant) => write!(f, "{constant}"),
-            RawRegOp::Value(value) => write!(f, "#{value}"),
+            RawRegOp::Value(value) => write!(f, "#{}", *value as i16),
             RawRegOp::Register(register) => write!(f, "{register}"),
         }
     }
