@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::fmt::{Display, Formatter};
 use std::str::FromStr;
 use crate::AssemblerError;
 
@@ -46,6 +47,15 @@ impl FromStr for RegOp {
     }
 }
 
+impl Display for RegOp {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
+        match self {
+            RegOp::Direct(raw_reg_op) => write!(f, "{raw_reg_op}"),
+            RegOp::Indirect(raw_reg_op) => write!(f, "[{raw_reg_op}]"),
+        }
+    }
+}
+
 impl RegOp {
     pub fn size(&self) -> usize {
         match self {
@@ -89,6 +99,38 @@ impl FromStr for RawRegOp {
                 "rf" => Ok(RawRegOp::Register(Register::RF)),
                 _ => Ok(RawRegOp::Const(s.to_string())),
             }
+        }
+    }
+}
+
+impl Display for RawRegOp {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
+        match self {
+            RawRegOp::Const(constant) => write!(f, "{constant}"),
+            RawRegOp::Value(value) => write!(f, "{value}"),
+            RawRegOp::Register(register) => write!(f, "{register}"),
+        }
+    }
+}
+
+impl Display for Register {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Register::R0 => write!(f, "r0"),
+            Register::R1 => write!(f, "r1"),
+            Register::R2 => write!(f, "r2"),
+            Register::R3 => write!(f, "r3"),
+            Register::R4 => write!(f, "r4"),
+            Register::R5 => write!(f, "r5"),
+            Register::R6 => write!(f, "r6"),
+            Register::R7 => write!(f, "r7"),
+            Register::RR => write!(f, "rr"),
+            Register::RI => write!(f, "ri"),
+            Register::RB => write!(f, "rb"),
+            Register::RS => write!(f, "rs"),
+            Register::RG => write!(f, "rg"),
+            Register::RD => write!(f, "rd"),
+            Register::RF => write!(f, "rf"),
         }
     }
 }
@@ -142,6 +184,15 @@ impl FromStr for ConstOp {
             Ok(RawRegOp::Value(v)) => Ok(ConstOp::Value(v)),
             Ok(RawRegOp::Register(_)) => Err(AssemblerError::UnallowedRegister(UnallowedRegister)),
             Err(err) => Err(AssemblerError::InvalidOperand(err)),
+        }
+    }
+}
+
+impl Display for ConstOp {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ConstOp::Const(constant) => write!(f, "{constant}"),
+            ConstOp::Value(value) => write!(f, "#{value}"),
         }
     }
 }

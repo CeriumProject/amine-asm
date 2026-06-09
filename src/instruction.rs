@@ -1,3 +1,4 @@
+use std::fmt::{Display, Formatter};
 use std::str::FromStr;
 pub use crate::AssemblerError;
 pub use crate::opcode::{NoOpOpcode, SingleOpOpcode, TwoOpOpcode};
@@ -123,6 +124,30 @@ impl FromStr for Instruction {
             })),
             [] => Ok(Instruction::Blank),
             _ => Err(AssemblerError::InvalidInstruction(InvalidInstruction(s.to_string())))?,
+        }
+    }
+}
+
+impl Display for Instruction {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Instruction::Label(label) => write!(f, "{label}:\n"),
+            Instruction::Sublabel(label) => write!(f, ".{label}:\n"),
+            Instruction::Include(include) => write!(f, "    include {include}\n"),
+            Instruction::Define(name, value) => write!(f, "    define {name} {value}\n"),
+            Instruction::RawWords(words) => {
+                write!(f, "     wd\n")?;
+                for word in words {
+                    word.fmt(f)?;
+                }
+                Ok(())
+            },
+            Instruction::TwoOp(opcode, op1, op2) => {
+                write!(f, "    {opcode} {op1} {op2}\n")
+            }
+            Instruction::SingleOp(opcode, op) => write!(f, "    {opcode} {op}\n"),
+            Instruction::NoOp(opcode) => write!(f, "    {opcode}\n"),
+            Instruction::Blank => write!(f, "\n"),
         }
     }
 }
