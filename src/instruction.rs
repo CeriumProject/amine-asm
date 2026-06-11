@@ -4,7 +4,7 @@ pub use crate::AssemblerError;
 pub use crate::opcode::{NoOpOpcode, SingleOpOpcode, TwoOpOpcode};
 pub use crate::operand::{ConstOp, RegOp};
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum Instruction {
     Label(String),
     Sublabel(String),
