@@ -10,26 +10,26 @@ pub struct InvalidOperand(String);
 #[derive(Debug)]
 pub struct InvalidLabel(String);
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum RegOp {
     Direct(RawRegOp),
     Indirect(RawRegOp),
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum RawRegOp {
     Const(String),
     Value(u16),
     Register(Register),
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum ConstOp {
     Const(String),
     Value(u16),
 }
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub enum Register {
     R0, R1, R2, R3, R4, R5, R6, R7,
     RR, RI, RB, RS, RG, RD, RF,
