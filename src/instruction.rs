@@ -136,11 +136,11 @@ impl Display for Instruction {
             Instruction::Include(include) => write!(f, "    include {include}\n"),
             Instruction::Define(name, value) => write!(f, "    define {name} {value}\n"),
             Instruction::RawWords(words) => {
-                write!(f, "     wd\n")?;
+                write!(f, "    dw")?;
                 for word in words {
-                    word.fmt(f)?;
+                    write!(f, " {word}")?;
                 }
-                Ok(())
+                write!(f, "\n")
             },
             Instruction::TwoOp(opcode, op1, op2) => {
                 write!(f, "    {opcode} {op1} {op2}\n")
