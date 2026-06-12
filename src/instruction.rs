@@ -147,7 +147,7 @@ impl Display for Instruction {
             }
             Instruction::SingleOp(opcode, op) => write!(f, "    {opcode} {op}\n"),
             Instruction::NoOp(opcode) => write!(f, "    {opcode}\n"),
-            Instruction::Blank => write!(f, "\n"),
+            Instruction::Blank => write!(f, "\n\n"),
         }
     }
 }
